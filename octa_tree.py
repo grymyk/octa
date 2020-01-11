@@ -2,14 +2,21 @@
 
 import pygame
 from pygame.locals import *
- 
+
+from OpenGL.GL import *
+from OpenGL.GLU import *
+
+import matplotlib.cm
+
+from vectors import *
+
 class App:
     def __init__(self):
         print('__init__');
         
         self._running = True
         self._display_surf = None
-        self.size = self.weight, self.height = 640, 400
+        self.size = self.weight, self.height = 400, 400
  
     def on_init(self):
         print('on_init');
