@@ -1,21 +1,13 @@
 from math import sqrt, sin, cos, acos, atan2
 
-# def add(v1,v2):
-#     return (v1[0] + v2[0], v1[1] + v2[1])
-
-
-
-# def add(*vectors):
-#     by_coordinate = zip(*vectors)
-#     coordinate_sums = [sum(coords) for coords in by_coordinate]
-#     return tuple(coordinate_sums)
+def normal(face):
+    return(cross(subtract(face[1], face[0]), subtract(face[2], face[0])))
 
 def add(*vectors):
     return tuple(map(sum,zip(*vectors)))
     
-def subtract(v1,v2):
-    """vectors fn"""
-    
+def subtract(v1, v2):
+    """vectors fn"""    
     return tuple(v1-v2 for (v1,v2) in zip(v1,v2))
 
 def length(v):

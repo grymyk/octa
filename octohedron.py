@@ -48,7 +48,7 @@ display = (400, 400)
 window = pygame.display.set_mode(display, DOUBLEBUF|OPENGL)
 
 gluPerspective(45, 1, 0.1, 50.0)
-glTranslatef(0.0,0.0, -5)
+glTranslatef(0.0, 0.0, -5)
 glEnable(GL_CULL_FACE)
 glEnable(GL_DEPTH_TEST)
 glCullFace(GL_BACK)

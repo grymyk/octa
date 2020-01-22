@@ -1,42 +1,19 @@
-import pygame
-from pygame.locals import (
-    K_UP, K_DOWN, K_LEFT, K_RIGHT,
-    K_ESCAPE, KEYDOWN, QUIT, DOUBLEBUF, OPENGL
-)
-
-from OpenGL.GL import (glClear, glTranslatef, glEnable, glBegin,
-    GL_CULL_FACE, GL_DEPTH_TEST, GL_BACK, GL_COLOR_BUFFER_BIT,
-    GL_DEPTH_BUFFER_BIT, glBegin, GL_TRIANGLES, glColor3fv, glVertex3fv,
-    glCullFace, glEnd, glRotatef
-)
- 
-from OpenGL.GLU import gluPerspective
-
-import matplotlib.cm
-
-from vectors import cross, subtract, dot, unit
+from pygame_app import *
+from drawer import *
 from octa import *
+from transform import *
+ 
+axisX = (1, 0, 0);
+axisY = (0, 1, 0)
+axisZ = (0, 0, 1)
 
-######### add to vectors.py
-def normal(face):
-    return(cross(subtract(face[1], face[0]), subtract(face[2], face[0])))
+norm1Z = (1, 1, 1)
+norm2Z = (-1, 1, 1)
+norm3Z = (-1, -1, 1)
+norm4Z = (1, -1, 1)
 
-blues = matplotlib.cm.get_cmap('Blues')
-
-def shade(face, color_map=blues, light=(1, 2 ,3)):
-    return color_map(1 - dot(unit(normal(face)), unit(light)))
-
-########################################
-
-def axis_rotate(msec):
-    degrees_per_sec = 360./5.
-    degrees_per_msec = degrees_per_sec / 1000.
-
-    rotateAngle = msec * degrees_per_msec;
-    rotateAxis = (1, 1, 1);
-    
-    glRotatef(rotateAngle, rotateAxis[0], rotateAxis[1], rotateAxis[2])
-     
+vert2 = (1, 1, 0)
+ 
 class App:
     def __init__(self):
         print('__init__');
@@ -47,7 +24,7 @@ class App:
         
         self.light = (1, 2, 3)
 
-        self.octa = Octahedron()
+        self.octa = Octahedron([0, 0, 2])
  
     def on_init(self):
         print('on_init');
@@ -56,11 +33,14 @@ class App:
         self._running = True
         
         display = (400, 400)
-        window = pygame.display.set_mode(display, DOUBLEBUF|OPENGL)
-
-        gluPerspective(45, 1, 0.1, 50.0)
+        pygame.display.set_mode(display, DOUBLEBUF|OPENGL)
         
-        glTranslatef(0.0, 0.0, -25)
+        gluPerspective(45, 1, 0.1, 50.0)
+        glTranslatef(0.0, 0.0, -15)
+        
+        angle = 45
+        
+        # ~ rotate(angle, norm1Z)
         
         glEnable(GL_CULL_FACE)
         glEnable(GL_DEPTH_TEST)
@@ -79,12 +59,14 @@ class App:
         print('on_loop')
         
         self.msec = self.clock.tick()
+        # ~ print(self.msec)
+        
         faces = self.octa.getFaces()
+        # ~ print(faces)
 
         glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
 
         glBegin(GL_TRIANGLES)
-        
         for face in faces:
             color = shade(face, blues, self.light)
 
@@ -92,12 +74,11 @@ class App:
                 glColor3fv((color[0], color[1], color[2]))
                 glColor3fv((color[0], color[1], color[2]))
                 glVertex3fv(vertex)
-        
         glEnd()
 
         pygame.display.flip()
-        
-        # ~ axis_rotate(self.msec)
+    
+        rotate_by_time(self.msec, axisZ)
     
     def on_render(self):
         print('on_render');
