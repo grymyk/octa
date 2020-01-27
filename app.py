@@ -57,14 +57,23 @@ class App:
             
     def on_loop(self):
         print('on_loop')
-        
-        self.msec = self.clock.tick()
-        # ~ print(self.msec)
-        
-        faces = self.octa.getFaces()
-        # ~ print(faces)
+        # ~ handle Events
+        # 
+        # ~ glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
+        #
+        # ~ do Transformations And Drawing 
+        #
+        # ~ pg.display.flip()
+        #
+        # ~ pg.time.wait(1)
 
         glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
+
+        self.msec = self.clock.tick()
+        # ~ print(self.msec)
+
+        faces = self.octa.getFaces()
+        # ~ print(faces)
 
         glBegin(GL_TRIANGLES)
         for face in faces:
@@ -76,9 +85,10 @@ class App:
                 glVertex3fv(vertex)
         glEnd()
 
-        pygame.display.flip()
-    
         rotate_by_time(self.msec, axisZ)
+
+        pygame.display.flip()
+
     
     def on_render(self):
         print('on_render');
