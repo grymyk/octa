@@ -1,10 +1,18 @@
 import pygame
-from pygame.locals import *
+from pygame.locals import (
+    QUIT, KEYDOWN, K_LEFT, K_RIGHT, DOUBLEBUF, OPENGL
+)
 
-from OpenGL.GL import *
-from OpenGL.GLU import *
 
-from cube import face_colors, edges, faces, vertices
+from OpenGL.GL import (glClear, glTranslatef, glEnable, glBegin,
+    GL_CULL_FACE, GL_DEPTH_TEST, GL_BACK, GL_COLOR_BUFFER_BIT,
+    GL_DEPTH_BUFFER_BIT, glBegin, GL_TRIANGLES, glColor3fv, glVertex3fv,
+    glCullFace, glEnd, glRotatef, GL_QUADS, GL_LINES
+)
+
+from OpenGL.GLU import gluPerspective
+
+from cube import vertices, faces, edges, face_colors
 from coords import archimedean_spiral
    
 def set_vertices(number):
@@ -72,29 +80,25 @@ def drawShape():
 
 
 def Shape(vertices):
-    def drawFaces(vertices):
-        glBegin(GL_QUADS)
+    glBegin(GL_QUADS)
 
-        for face in faces:
-            x = 0
+    for face in faces:
+        x = 0
 
-            for vertex in face:
-                x += 1
-                glColor3fv(face_colors[x])
-                glVertex3fv(vertices[vertex])
-        glEnd()
+        for vertex in face:
+            x += 1
 
-    def drawEdges(vertices):
-        glBegin(GL_LINES)
-
-        for edge in edges:
-            for vertex in edge:
-                glVertex3fv(vertices[vertex])
-
+            glColor3fv(face_colors[x])
+            glVertex3fv(vertices[vertex])
     glEnd()
 
-    drawFaces(vertices)
-    drawEdges(vertices)
+    glBegin(GL_LINES)
+
+    for edge in edges:
+        for vertex in edge:
+            glVertex3fv(vertices[vertex])
+
+    glEnd()
 
 count = 0 
 shape_list = []
