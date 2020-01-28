@@ -31,7 +31,7 @@ def shade(face, color_map=blues, light=(1, 2 ,3)):
 
 light = (1, 2, 3)
 
-faces = [
+faces = (
     [(1,0,0), (0,1,0), (0,0,1)],
     [(1,0,0), (0,0,-1), (0,1,0)],
     [(1,0,0), (0,0,1), (0,-1,0)],
@@ -40,7 +40,7 @@ faces = [
     [(-1,0,0), (0,1,0), (0,0,-1)],
     [(-1,0,0), (0,-1,0), (0,0,1)],
     [(-1,0,0), (0,0,-1), (0,-1,0)],
-]
+)
 
 pygame.init()
 
@@ -71,8 +71,7 @@ while True:
         print(color)
 
         for vertex in face:
-            glColor3fv((color[0], color[1], color[2]))
-            glColor3fv((color[0], color[1], color[2]))
+            glColor3fv( (color[0], color[1], color[2]) )
             glVertex3fv(vertex)
     glEnd()
     

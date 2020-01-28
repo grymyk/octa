@@ -12,7 +12,9 @@ from OpenGL.GL import (glClear, glTranslatef, glEnable, glBegin,
 
 from OpenGL.GLU import gluPerspective
 
-from cube import vertices, faces, edges, face_colors
+from octahedron import vertices, faces, edges, face_colors
+# ~ from cube import vertices, faces, edges, face_colors
+
 from coords import archimedean_spiral
    
 def set_vertices(number):
@@ -80,7 +82,8 @@ def drawShape():
 
 
 def Shape(vertices):
-    glBegin(GL_QUADS)
+    # ~ glBegin(GL_QUADS)
+    glBegin(GL_TRIANGLES)
 
     for face in faces:
         x = 0
@@ -114,7 +117,7 @@ def init():
 
 def camera():
     pygame.init()
-    display = (280, 260)
+    display = (1280, 1260)
     pygame.display.set_mode(display, DOUBLEBUF|OPENGL)
 
     gluPerspective(45, (display[0]/display[1]), 0.1, 50.0)
