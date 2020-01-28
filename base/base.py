@@ -4,8 +4,8 @@ from pygame.locals import *
 from OpenGL.GL import *
 from OpenGL.GLU import *
 
-from cube import *
-from coords import *
+from cube import face_colors, edges, faces, vertices
+from coords import archimedean_spiral
    
 def set_vertices(number):
     coords = archimedean_spiral(number)
@@ -71,14 +71,30 @@ def drawShape():
         Shape(shape_list[index])
 
 
-def Shape(vertices):    
-    glBegin(GL_LINES)
-    
-    for edge in edges:
-        for vertex in edge:
-            glVertex3fv(vertices[vertex])
-    
+def Shape(vertices):
+    def drawFaces(vertices):
+        glBegin(GL_QUADS)
+
+        for face in faces:
+            x = 0
+
+            for vertex in face:
+                x += 1
+                glColor3fv(face_colors[x])
+                glVertex3fv(vertices[vertex])
+        glEnd()
+
+    def drawEdges(vertices):
+        glBegin(GL_LINES)
+
+        for edge in edges:
+            for vertex in edge:
+                glVertex3fv(vertices[vertex])
+
     glEnd()
+
+    drawFaces(vertices)
+    drawEdges(vertices)
 
 count = 0 
 shape_list = []
