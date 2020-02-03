@@ -1,17 +1,6 @@
 import random
 import math
 
-def coors_random():
-    max_distance = 100
-    coord = []
-    
-    coord.append(random.randrange(-10, 10))
-    coord.append(random.randrange(-10, 10))
-    coord.append(random.randrange(-1*max_distance,-20) )
-
-    return coord
-
-   
 def archimedean_spiral(t):
     coord = []
     
@@ -29,3 +18,14 @@ def archimedean_spiral(t):
     coord.append(z)
     
     return coord
+
+def coors_random():
+    max_distance = 100
+    coord = []
+    
+    coord.append(random.randrange(-10, 10))
+    coord.append(random.randrange(-10, 10))
+    coord.append(random.randrange(-1*max_distance,-20) )
+
+    return coord
+
