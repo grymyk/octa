@@ -1,5 +1,14 @@
 import random
 import math
+import transformations as tf
+
+alpha, beta, gamma = 0.123, -1.234, 2.345
+origin, xaxis, yaxis, zaxis = [0, 0, 0], [1, 0, 0], [0, 1, 0], [0, 0, 1]
+
+Ry = tf.rotation_matrix(beta, yaxis)
+
+def rotate():
+    coords
 
 def archimedean_spiral(t):
     coord = []
@@ -25,7 +34,7 @@ def coors_random():
     
     coord.append(random.randrange(-10, 10))
     coord.append(random.randrange(-10, 10))
-    coord.append(random.randrange(-1*max_distance,-20) )
+    coord.append(random.randrange(-1 * max_distance, -20) )
 
     return coord
 

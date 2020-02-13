@@ -1,5 +1,4 @@
 import pygame
-import numpy
 
 from pygame.locals import (
     QUIT, KEYDOWN, K_LEFT, K_RIGHT, DOUBLEBUF, OPENGL
@@ -19,13 +18,15 @@ from shape import Shape
 def camera():
     pygame.init()
 
-    display = (1280, 1260)
+    display = (680, 600)
     pygame.display.set_mode(display, DOUBLEBUF|OPENGL)
 
     gluPerspective(45, (display[0]/display[1]), 0.1, 50.0)
 
-    dZ = -50
-    glTranslatef(0.0, 0.0, dZ)
+    dX = 0
+    dY = 0
+    dZ = -10
+    glTranslatef(dX, dY, dZ)
 
 
 def events(shape):
@@ -53,7 +54,7 @@ def main():
         glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
         
         shape.draw()
-        
+
         pygame.display.flip()
         pygame.time.wait(10)
 
