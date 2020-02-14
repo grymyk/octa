@@ -89,7 +89,9 @@ class Shape():
             self.render(self.shape_list[index])
 
     def render(self, vertices):
-        glBegin(GL_TRIANGLES)
+        gray = (0.5, 0.5, 0.5)
+
+    glBegin(GL_TRIANGLES)
 
         count_face = 0
 
@@ -106,6 +108,7 @@ class Shape():
         glBegin(GL_LINES)
         for edge in edges:
             for vertex in edge:
+                glColor3fv(gray)
                 glVertex3fv(vertices[vertex])
 
         glEnd()
