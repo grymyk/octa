@@ -1,10 +1,10 @@
-from octahedron import vertices, faces, edges, face_colors
+from octahedron import vertices, faces, edges, getColorFace
 from coords import archimedean_spiral
 from matrix import *
 from transformations import translation_matrix
 
 from OpenGL.GL import (
-    glColor3fv, glVertex3fv,
+    glColor3fv, glVertex3fv, glColor4fv,
     glBegin, glEnd,
     GL_QUADS, GL_LINES, GL_TRIANGLES,
 )
@@ -23,7 +23,6 @@ def set_vertices(number):
     z_delta = 1
 
     tX = translation_matrix([3, 0, 0])
-    print(tX)
 
     TL = (
         (1, 0, x_delta),
@@ -31,19 +30,11 @@ def set_vertices(number):
         (0, 0, 1)
     )
 
-    # ~ print('TL')
-    # ~ print(TL)
-
-    print(vertices)
-
     tl_vertices = []
 
     for vertex in vertices:
         tl_vertex = multiply_matrix_vector(TL, vertex)
         tl_vertices.append(tl_vertex)
-
-    print('tl_vertices')
-    print(tl_vertices)
 
     for vertex in vertices:
         new_vert = []
@@ -57,19 +48,43 @@ def set_vertices(number):
         new_vert.append(new_z)
 
         new_vertices.append(new_vert)
-    
-    print('new_vertices')
-    print(new_vertices)
 
     return new_vertices
     # ~ return tl_vertices
 
 class Shape():
     def __init__(self):
-        self.count = 0 
+        self.active_face = 0
+        self.face_colors = getColorFace(self.active_face)
+        print(self.face_colors)
+
+        self.count = 0
         self.shape_list = []
         
         self.add()
+
+    def nextFace(self):
+        print('nextFace')
+        self.remove()
+        self.active_face += 1
+        # ~ print('active_face:', self.active_face)
+
+        self.face_colors = getColorFace(self.active_face)
+        self.add()
+
+    def prevFace(self):
+        print('prevFace')
+        self.remove()
+        self.active_face -= 1
+        # ~ print('active_face:', self.active_face)
+
+        self.face_colors = getColorFace(self.active_face)
+
+        self.add()
+
+    def add(self):
+        self.count += 1
+        self.shape_list.append( set_vertices(self.count) )
 
     def remove(self):
         len_shape_list = len(self.shape_list)
@@ -78,32 +93,27 @@ class Shape():
             self.count -= 1
             self.shape_list.pop()
 
-    def add(self):
-        self.count += 1
-        self.shape_list.append( set_vertices(self.count) )
-
     def draw(self):
         len_shape_dict = len(self.shape_list)
 
         for index in range(len_shape_dict):
-            self.render(self.shape_list[index])
+            self.shade(self.shape_list[index])
 
-    def render(self, vertices):
-        gray = (0.5, 0.5, 0.5)
-
-    glBegin(GL_TRIANGLES)
+    def shadeTriangles(self, vertices):
+        glBegin(GL_TRIANGLES)
 
         count_face = 0
 
         for face in faces:
-            x = 0
-
             for vertex in face:
-                glColor3fv(face_colors[count_face])
+                glColor4fv(self.face_colors[count_face])
                 glVertex3fv(vertices[vertex])
 
             count_face += 1
         glEnd()
+
+    def shadeLines(self, vertices):
+        gray = (0.5, 0.5, 0.5)
 
         glBegin(GL_LINES)
         for edge in edges:
@@ -112,6 +122,10 @@ class Shape():
                 glVertex3fv(vertices[vertex])
 
         glEnd()
+
+    def shade(self, vertices):
+        self.shadeTriangles(vertices)
+        self.shadeLines(vertices)
 
     def getCount(self):
         return self.count
