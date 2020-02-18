@@ -7,6 +7,7 @@ from OpenGL.GL import (
     glColor3fv, glVertex3fv, glColor4fv,
     glBegin, glEnd,
     GL_QUADS, GL_LINES, GL_TRIANGLES,
+    glRotatef, glTranslatef
 )
 
 def set_vertices(number):
@@ -56,12 +57,17 @@ class Shape():
     def __init__(self):
         self.active_face = 0
         self.face_colors = getColorFace(self.active_face)
-        print(self.face_colors)
 
         self.count = 0
         self.shape_list = []
         
         self.add()
+        
+    def rotate(self, angle, axis):
+        glRotatef(angle, axis[0], axis[1], axis[2])
+        
+    def translate(self, vector):
+        glTranslatef(vector[0], vector[1], vector[2])
 
     def nextFace(self):
         print('nextFace')

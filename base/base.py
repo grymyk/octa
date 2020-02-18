@@ -88,7 +88,21 @@ def events(shape):
             if event.key == pygame.K_LEFT:
                 # ~ shape.remove()
                 shape.prevFace()
-
+        
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_r:
+                angle = 45
+                axis = (0, 1, 0)
+                
+                shape.rotate(angle, axis)
+       
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_e:
+                angle = -45
+                axis = (0, 1, 0)
+                
+                shape.rotate(angle, axis)
+                
         mouseMove(event)
 
 def main():

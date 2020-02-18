@@ -10,11 +10,17 @@ edges = (
     (1, 5), (2, 5), (4, 5), (3, 5) # botton segments +Z
 )
 
-faces = (
+faces_1 = (
     (1, 2, 5), (1, 3, 5), (3, 4, 5), (2, 4, 5), # top faces ccw
     # ~ (1, 5, 2), (1, 5, 3), (3, 5, 4), (2, 5, 4), # top faces cw
     # ~ (0, 2, 4), (0, 3, 4), (0, 1, 3), (0, 1, 2),  # bottom faces cw
     (0, 4, 2), (0, 4, 3), (0, 3, 1), (0, 2, 1),  # bottom faces ccw
+)
+
+# yupyter
+faces = (
+    (0, 1, 2), (0, 1, 3), (0, 3, 4), (0, 2, 4), # bottom faces
+    (1, 2, 5), (1, 3, 5), (3, 4, 5), (2, 4, 5)  # top faces
 )
 
 # color(red, green, blue)
