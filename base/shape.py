@@ -1,4 +1,6 @@
-from octahedron import vertices, faces, edges, getColorFace
+from octahedron import (
+    vertices, faces, edges, getColorFace, printFaceNormal
+)
 from coords import archimedean_spiral
 from matrix import *
 from transformations import translation_matrix
@@ -55,8 +57,10 @@ def set_vertices(number):
 
 class Shape():
     def __init__(self):
-        self.active_face = 0
+        self.active_face = 4
         self.face_colors = getColorFace(self.active_face)
+
+        printFaceNormal(self.active_face)
 
         self.count = 0
         self.shape_list = []
@@ -73,7 +77,6 @@ class Shape():
         print('nextFace')
         self.remove()
         self.active_face += 1
-        # ~ print('active_face:', self.active_face)
 
         self.face_colors = getColorFace(self.active_face)
         self.add()
@@ -82,7 +85,6 @@ class Shape():
         print('prevFace')
         self.remove()
         self.active_face -= 1
-        # ~ print('active_face:', self.active_face)
 
         self.face_colors = getColorFace(self.active_face)
 

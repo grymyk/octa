@@ -1,3 +1,5 @@
+from vector import *
+
 vertices = (
     (0, 0, -1), # bottom point -Z
     (1, 0, 0), (0, 1, 0), (0, -1, 0), (-1, 0, 0), # plane XOY
@@ -29,6 +31,16 @@ face_colors = (
     [0.41, 0.95, 0.48], [0, 0.2, 0], [0, 0.2, 0], [0, 0.2, 0]
 )
 
+def face_vertex_coords(vertices, face_vertex_i):
+    return [vertices[fv_i] for fv_i in face_vertex_i]
+
+def printFaceNormal(face_i):
+    face_vertex_ies = faces[face_i]
+    face_coords = face_vertex_coords(vertices, face_vertex_ies)
+    normal = getNormal(face_coords)
+
+    print(normal, 'normal:')
+
 def getColorFace(n):
     len_face = len(faces)
     default_color = [0, 0.2, 0, 0.1]
@@ -39,7 +51,9 @@ def getColorFace(n):
     if (n >= i):
         i = n % len_face
 
-    # ~ print('face i:', i)
+    print(i, 'face index')
+
+    printFaceNormal(i)
 
     face_colors = [default_color for color in range(len_face)]
     face_colors[i] = active_color
