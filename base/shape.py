@@ -1,7 +1,7 @@
 from octahedron import (
     vertices, faces, edges, getColorFace, printFaceNormal
 )
-from coords import archimedean_spiral
+from coords import archimedean_spiral, translate
 from matrix import *
 from transformations import translation_matrix
 
@@ -13,47 +13,30 @@ from OpenGL.GL import (
 )
 
 def set_vertices(number):
-    coords = archimedean_spiral(number)
-    
-    x_value_change = coords[0]
-    y_value_change = coords[1]
-    z_value_change = coords[2]
-
     new_vertices = []
 
-    x_delta = 3
-    y_delta = 0
-    z_delta = 1
+    print( translate(vertices) )
 
-    tX = translation_matrix([3, 0, 0])
+    coords = translate(vertices)
 
-    TL = (
-        (1, 0, x_delta),
-        (0, 1, y_delta),
-        (0, 0, 1)
-    )
+    new_vertices.append(coords)
+    
+    # ~ coords = archimedean_spiral(number)
 
-    tl_vertices = []
+    # ~ for vertex in vertices:
+        # ~ new_vert = []
 
-    for vertex in vertices:
-        tl_vertex = multiply_matrix_vector(TL, vertex)
-        tl_vertices.append(tl_vertex)
+        # ~ new_x = vertex[0] + coords[0]
+        # ~ new_y = vertex[1] + coords[1]
+        # ~ new_z = vertex[2] + coords[2]
 
-    for vertex in vertices:
-        new_vert = []
+        # ~ new_vert.append(new_x)
+        # ~ new_vert.append(new_y)
+        # ~ new_vert.append(new_z)
 
-        new_x = vertex[0] + x_value_change
-        new_y = vertex[1] + y_value_change
-        new_z = vertex[2] + z_value_change
-
-        new_vert.append(new_x)
-        new_vert.append(new_y)
-        new_vert.append(new_z)
-
-        new_vertices.append(new_vert)
+        # ~ new_vertices.append(new_vert)
 
     return new_vertices
-    # ~ return tl_vertices
 
 class Shape():
     def __init__(self):
@@ -91,6 +74,7 @@ class Shape():
         self.add()
 
     def add(self):
+        print('add')
         self.count += 1
         self.shape_list.append( set_vertices(self.count) )
 

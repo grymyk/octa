@@ -1,3 +1,5 @@
+from math import sqrt
+
 def subtract(v1, v2):
 #     print('v1:', v1)
 #     print('v2:', v2)
@@ -18,3 +20,13 @@ def getNormal(face_vertices):
 #     print('v:', v)
     
     return ( cross(u, v) )
+    
+
+def magnitude(v):
+    return sqrt(sum([coord ** 2 for coord in v]))
+
+def scale(scalar, vector):
+    return tuple(scalar * coord for coord in vector)
+
+def unit(vector):
+    return scale(1./magnitude(vector), vector)

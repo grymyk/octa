@@ -2,13 +2,29 @@ import random
 import math
 import transformations as tf
 
+import sys
+
+from matrix import *
+
 alpha, beta, gamma = 0.123, -1.234, 2.345
 origin, xaxis, yaxis, zaxis = [0, 0, 0], [1, 0, 0], [0, 1, 0], [0, 0, 1]
 
 Ry = tf.rotation_matrix(beta, yaxis)
 
-def rotate():
-    coords
+def translate(vertices, vector_tl = (1, 1, 1)):
+    gomo_ver = gomoCoord(vertices)
+    
+    matrix_tl = translation_matrix(vector_tl)
+    sys.getsizeof(matrix_tl)
+    
+    v1 = []
+    
+    for vertex in gomo_ver:        
+        v = multiply_matrix_vector(matrix_tl, vertex)
+        v1.append(v)
+
+    return euclidCoord(v1)
+    
 
 def archimedean_spiral(t):
     coord = []

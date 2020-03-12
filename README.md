@@ -12,3 +12,7 @@
 * [learn opengl](https://learnopengl.com/)
 * [habr: Вычислительная геометрия](https://habr.com/ru/post/147691/)
 * [mouse-transform-object](http://goldsequence.blogspot.com/2017/04/using-mouse-for-object-zoom-inzoom.html)
+* [algorithms_and_data-structure](http://aliev.me/runestone/index.html)
+* [How-to-Think-Like-a-Computer-Scientist](http://openbookproject.net/thinkcs/python/english3e/)
+* [Никулин "Компьютерная геометрия"](https://drive.google.com/open?id=1yFFjaCD3pS3EugPhceYazWzEqOJa2X4n)
+

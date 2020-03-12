@@ -1,7 +1,14 @@
 import pygame
 
+import math
+
 from pygame.locals import (
     QUIT, KEYDOWN, K_LEFT, K_RIGHT, K_KP_ENTER
+)
+
+from OpenGL.GL import (
+    glTranslatef, glRotatef,
+    GLfloat, glGetFloatv, GL_MODELVIEW_MATRIX, glScaled
 )
 
 lastPosX = 0
@@ -78,5 +85,6 @@ def events(shape):
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_RETURN:
                 print('enter button')
+                shape.add()
                 
         mouseMove(event)
